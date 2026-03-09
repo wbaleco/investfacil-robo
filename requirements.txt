@@ -1,0 +1,7 @@
+MetaTrader5
+streamlit
+pandas
+python-dotenv
+plotly
+scikit-learn
+joblib

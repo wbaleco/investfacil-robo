@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuickInvest Bot Dashboard</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "card-dark": "#192233", 
+                        "border-dark": "#232f48",
+                        "emerald-custom": "#0bda5e",
+                        "rose-custom": "#ef4444"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "2xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101622;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #232f48;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #324467;
+        }.circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            max-height: 250px;
+        }
+        .circle-bg {
+            fill: none;
+            stroke: #232f48;
+            stroke-width: 2.5;
+        }
+        .circle {
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+        }
+        @keyframes progress {
+            0% { stroke-dasharray: 0 100; }
+        }
+        .percentage {
+            fill: #fff;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            font-size: 0.5em;
+            text-anchor: middle;
+        }
+        .label {
+            fill: #94a3b8;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.2em;
+            text-anchor: middle;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden min-h-screen flex flex-col">
+<header class="sticky top-0 z-50 w-full border-b border-border-dark bg-background-dark/80 backdrop-blur-md px-4 sm:px-6 lg:px-8 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="flex items-center justify-center size-10 rounded-xl bg-primary/20 text-primary">
+<span class="material-symbols-outlined text-2xl">smart_toy</span>
+</div>
+<div>
+<h1 class="text-white text-lg font-bold leading-tight tracking-tight">QuickInvest Bot</h1>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-custom opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-custom"></span>
+</span>
+<span class="text-xs text-emerald-custom font-medium uppercase tracking-wider">Live Connection</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 sm:gap-6">
+<label class="inline-flex items-center cursor-pointer group">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="relative w-12 h-7 bg-slate-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary/50 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+<span class="ms-3 text-sm font-medium text-slate-300 group-hover:text-white transition-colors">System On</span>
+</label>
+<button class="hidden sm:flex items-center justify-center size-10 rounded-xl bg-card-dark border border-border-dark hover:bg-border-dark transition-colors text-slate-400 hover:text-white">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="size-10 rounded-full bg-gradient-to-br from-primary to-purple-600 border-2 border-background-dark overflow-hidden cursor-pointer" title="User Profile">
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<section class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<div class="md:col-span-8 lg:col-span-8 flex flex-col sm:flex-row bg-card-dark rounded-2xl border border-border-dark overflow-hidden relative">
+<div class="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex-1 p-8 flex items-center justify-center border-b sm:border-b-0 sm:border-r border-border-dark relative z-10">
+<div class="relative size-48 md:size-56">
+<svg class="circular-chart text-emerald-custom" viewBox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" stroke="currentColor" stroke-dasharray="65, 100"></path>
+<text class="percentage" x="18" y="19">+$325.00</text>
+<text class="label" x="18" y="24">Daily Profit</text>
+</svg>
+</div>
+</div>
+<div class="flex-1 p-8 flex flex-col justify-center gap-6 relative z-10">
+<div>
+<h2 class="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">Goal Progress</h2>
+<div class="flex items-end gap-3">
+<span class="text-3xl font-bold text-white">65%</span>
+<span class="text-emerald-custom text-sm font-medium mb-1.5 flex items-center">
+<span class="material-symbols-outlined text-sm mr-0.5">trending_up</span> On Track
+                            </span>
+</div>
+<p class="text-slate-500 text-sm mt-2">Target: $500.00 daily. You are performing better than yesterday.</p>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-2">
+<div class="bg-background-dark/50 p-4 rounded-xl border border-border-dark/50">
+<div class="text-slate-400 mb-1"><span class="material-symbols-outlined text-lg">account_balance_wallet</span></div>
+<div class="text-lg font-bold text-white">$2,450.00</div>
+<div class="text-xs text-slate-500">Total Balance</div>
+</div>
+<div class="bg-background-dark/50 p-4 rounded-xl border border-border-dark/50">
+<div class="text-slate-400 mb-1"><span class="material-symbols-outlined text-lg">bar_chart</span></div>
+<div class="text-lg font-bold text-white">12</div>
+<div class="text-xs text-slate-500">Trades Today</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-4 lg:col-span-4 flex flex-col gap-4">
+<div class="bg-gradient-to-br from-primary to-blue-700 rounded-2xl p-6 text-white flex-1 relative overflow-hidden shadow-lg shadow-primary/20">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-6xl">robot_2</span>
+</div>
+<h3 class="font-bold text-lg mb-2 z-10 relative">System Status</h3>
+<p class="text-blue-100 text-sm mb-6 z-10 relative opacity-90">The bot is scanning the WIN/WDO markets for entry signals based on the 'RSI Reversal' strategy.</p>
+<div class="mt-auto z-10 relative">
+<div class="flex justify-between text-xs font-medium uppercase text-blue-200 mb-1">
+<span>Efficiency</span>
+<span>94%</span>
+</div>
+<div class="w-full bg-blue-900/40 rounded-full h-1.5">
+<div class="bg-white h-1.5 rounded-full" style="width: 94%"></div>
+</div>
+</div>
+</div>
+<div class="bg-card-dark rounded-2xl border border-border-dark p-6 flex flex-col justify-center">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-400 text-sm">Win Rate (Today)</span>
+<span class="bg-emerald-500/10 text-emerald-custom px-2 py-0.5 rounded text-xs font-bold">+2.5%</span>
+</div>
+<div class="text-3xl font-bold text-white">82.5%</div>
+<p class="text-slate-500 text-xs mt-1">Based on 12 closed trades</p>
+</div>
+</div>
+</section>
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="lg:col-span-2 bg-card-dark rounded-2xl border border-border-dark p-6">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-lg font-bold text-white">Balance Growth</h3>
+<p class="text-slate-500 text-sm">Real-time equity curve for the current session.</p>
+</div>
+<div class="flex gap-2">
+<span class="px-3 py-1 rounded-lg bg-background-dark text-slate-300 text-xs font-medium border border-border-dark">1D</span>
+<span class="px-3 py-1 rounded-lg bg-transparent text-slate-500 hover:text-slate-300 text-xs font-medium cursor-pointer">1W</span>
+</div>
+</div>
+<div class="relative w-full h-[300px]">
+<svg class="w-full h-full" fill="none" preserveAspectRatio="none" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#1152d4" stop-opacity="0.5"></stop>
+<stop offset="100%" stop-color="#1152d4" stop-opacity="0"></stop>
+</linearGradient>
+</defs>
+<line stroke="#232f48" stroke-width="0.2" x1="0" x2="100" y1="10" y2="10"></line>
+<line stroke="#232f48" stroke-width="0.2" x1="0" x2="100" y1="20" y2="20"></line>
+<line stroke="#232f48" stroke-width="0.2" x1="0" x2="100" y1="30" y2="30"></line>
+<line stroke="#232f48" stroke-width="0.2" x1="0" x2="100" y1="40" y2="40"></line>
+<path d="M0,45 Q10,40 20,42 T40,30 T60,25 T80,15 T100,10 L100,50 L0,50 Z" fill="url(#chartGradient)"></path>
+<path d="M0,45 Q10,40 20,42 T40,30 T60,25 T80,15 T100,10" fill="none" stroke="#1152d4" stroke-width="1" vector-effect="non-scaling-stroke"></path>
+</svg>
+<div class="absolute bottom-0 left-0 w-full flex justify-between text-[10px] text-slate-500 pt-2 border-t border-border-dark">
+<span>09:00</span>
+<span>10:00</span>
+<span>11:00</span>
+<span>12:00</span>
+<span>13:00</span>
+<span>14:00</span>
+<span>Live</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-6">
+<div class="bg-card-dark rounded-2xl border border-border-dark p-6 flex flex-col justify-between flex-1">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-white font-bold text-base flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">candlestick_chart</span>
+                            Open Position
+                        </h3>
+<span class="bg-emerald-500/10 text-emerald-custom text-xs font-bold px-2 py-1 rounded uppercase">Active</span>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<div>
+<p class="text-2xl font-bold text-white">WINJ24</p>
+<p class="text-slate-400 text-xs">Mini Index Future</p>
+</div>
+<div class="text-right">
+<p class="text-emerald-custom text-xl font-bold">+R$ 45.00</p>
+<p class="text-slate-500 text-xs">Current PnL</p>
+</div>
+</div>
+<div class="h-px bg-border-dark w-full"></div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="text-slate-500 text-xs mb-1">Type</p>
+<p class="text-emerald-custom font-bold text-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">arrow_upward</span> LONG
+                                </p>
+</div>
+<div>
+<p class="text-slate-500 text-xs mb-1">Contracts</p>
+<p class="text-white font-bold text-sm">5</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 border border-rose-500/20 py-2 rounded-lg text-sm font-bold transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">close</span> Close Position
+                    </button>
+</div>
+<div class="bg-card-dark rounded-2xl border border-border-dark p-6 flex flex-col justify-between flex-1">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-white font-bold text-base flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400">shield</span>
+                            Risk Limit
+                        </h3>
+<span class="text-slate-500 text-xs">Daily Stop Loss</span>
+</div>
+<div>
+<div class="flex items-end justify-between mb-2">
+<p class="text-2xl font-bold text-white">$150.00</p>
+<p class="text-slate-400 text-xs mb-1">Remaining</p>
+</div>
+<div class="w-full bg-background-dark rounded-full h-2 mb-2 overflow-hidden">
+<div class="bg-gradient-to-r from-emerald-500 to-yellow-500 h-2 rounded-full" style="width: 25%"></div>
+</div>
+<p class="text-xs text-slate-500 text-right">25% Used</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-card-dark rounded-2xl border border-border-dark p-6">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+<div>
+<h3 class="text-xl font-bold text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history_edu</span>
+                        Historical Performance
+                    </h3>
+<p class="text-slate-500 text-sm mt-1">Detailed analysis of your trading bot's profitability over time.</p>
+</div>
+<div class="flex bg-background-dark p-1 rounded-xl border border-border-dark self-start md:self-auto">
+<button class="px-4 py-2 rounded-lg bg-card-dark text-white text-xs font-medium shadow-sm transition-all hover:bg-card-dark/80">Weekly</button>
+<button class="px-4 py-2 rounded-lg text-slate-400 text-xs font-medium hover:text-white transition-all">Monthly</button>
+<button class="px-4 py-2 rounded-lg text-slate-400 text-xs font-medium hover:text-white transition-all">Yearly</button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<div class="lg:col-span-4 space-y-4">
+<h4 class="text-slate-300 text-sm font-semibold uppercase tracking-wider mb-2">Key Metrics</h4>
+<div class="grid grid-cols-1 gap-4">
+<div class="bg-background-dark/50 p-4 rounded-xl border border-border-dark flex items-center justify-between">
+<div>
+<p class="text-slate-500 text-xs mb-1">Total Trades</p>
+<p class="text-xl font-bold text-white">142</p>
+</div>
+<div class="size-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined">dataset</span>
+</div>
+</div>
+<div class="bg-background-dark/50 p-4 rounded-xl border border-border-dark flex items-center justify-between">
+<div>
+<p class="text-slate-500 text-xs mb-1">Win Rate</p>
+<p class="text-xl font-bold text-emerald-custom">68.4%</p>
+</div>
+<div class="size-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-custom">
+<span class="material-symbols-outlined">verified</span>
+</div>
+</div>
+<div class="bg-background-dark/50 p-4 rounded-xl border border-border-dark flex items-center justify-between">
+<div>
+<p class="text-slate-500 text-xs mb-1">Avg. Profit / Trade</p>
+<p class="text-xl font-bold text-white">+$12.50</p>
+</div>
+<div class="size-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">attach_money</span>
+</div>
+</div>
+<div class="bg-background-dark/50 p-4 rounded-xl border border-border-dark flex items-center justify-between">
+<div>
+<p class="text-slate-500 text-xs mb-1">Profit Factor</p>
+<p class="text-xl font-bold text-white">1.85</p>
+</div>
+<div class="size-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400">
+<span class="material-symbols-outlined">functions</span>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-8 flex flex-col">
+<div class="flex items-center justify-between mb-4">
+<h4 class="text-slate-300 text-sm font-semibold uppercase tracking-wider">Profit/Loss Curve</h4>
+<div class="flex items-center gap-2">
+<span class="flex items-center gap-1 text-[10px] text-slate-400"><span class="block size-2 rounded-full bg-primary"></span> Profit</span>
+<span class="flex items-center gap-1 text-[10px] text-slate-400"><span class="block size-2 rounded-full bg-rose-custom"></span> Loss</span>
+</div>
+</div>
+<div class="bg-background-dark/30 rounded-xl border border-border-dark p-4 flex-1 relative min-h-[300px]">
+<svg class="w-full h-full absolute inset-0 p-4" fill="none" preserveAspectRatio="none" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+<line stroke="#232f48" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="400" y1="50" y2="50"></line>
+<line stroke="#232f48" stroke-width="1" x1="0" x2="400" y1="100" y2="100"></line> 
+<line stroke="#232f48" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="400" y1="150" y2="150"></line>
+<rect fill="#1152d4" height="40" opacity="0.8" rx="2" width="20" x="20" y="60"></rect>
+<rect fill="#1152d4" height="60" opacity="0.9" rx="2" width="20" x="50" y="40"></rect>
+<rect fill="#1152d4" height="30" opacity="0.7" rx="2" width="20" x="80" y="70"></rect>
+<rect fill="#ef4444" height="30" opacity="0.8" rx="2" width="20" x="110" y="100"></rect>
+<rect fill="#1152d4" height="45" opacity="0.85" rx="2" width="20" x="140" y="55"></rect>
+<rect fill="#1152d4" height="70" opacity="1" rx="2" width="20" x="170" y="30"></rect>
+<rect fill="#ef4444" height="10" opacity="0.6" rx="2" width="20" x="200" y="100"></rect>
+<rect fill="#ef4444" height="45" opacity="0.9" rx="2" width="20" x="230" y="100"></rect>
+<rect fill="#1152d4" height="35" opacity="0.75" rx="2" width="20" x="260" y="65"></rect>
+<rect fill="#1152d4" height="80" opacity="1" rx="2" width="20" x="290" y="20"></rect>
+<rect fill="#1152d4" height="50" opacity="0.9" rx="2" width="20" x="320" y="50"></rect>
+<rect fill="#1152d4" height="20" opacity="0.6" rx="2" width="20" x="350" y="80"></rect>
+<path d="M30,80 L60,70 L90,85 L120,115 L150,77 L180,65 L210,105 L240,122 L270,82 L300,60 L330,75 L360,90" fill="none" stroke="#0bda5e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<div class="absolute bottom-2 left-4 right-4 flex justify-between text-[10px] text-slate-500 font-medium px-2">
+<span>Mon</span>
+<span>Tue</span>
+<span>Wed</span>
+<span>Thu</span>
+<span>Fri</span>
+<span>Sat</span>
+<span>Sun</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-card-dark rounded-2xl border border-border-dark overflow-hidden">
+<div class="px-6 py-4 border-b border-border-dark flex items-center justify-between">
+<h3 class="text-lg font-bold text-white">Recent Trades</h3>
+<button class="text-primary text-sm font-medium hover:text-blue-400">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm text-slate-400">
+<thead class="bg-background-dark/50 text-xs uppercase text-slate-500">
+<tr>
+<th class="px-6 py-3 font-medium" scope="col">Type</th>
+<th class="px-6 py-3 font-medium" scope="col">Asset</th>
+<th class="px-6 py-3 font-medium" scope="col">Time</th>
+<th class="px-6 py-3 font-medium text-right" scope="col">Profit/Loss</th>
+<th class="px-6 py-3 font-medium text-right" scope="col">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<tr class="hover:bg-border-dark/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-custom">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+</div>
+<span class="font-bold text-white">Buy</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-white">WDOJ24</td>
+<td class="px-6 py-4">10:42 AM</td>
+<td class="px-6 py-4 text-right font-bold text-emerald-custom">+$150.00</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center gap-1 rounded-full bg-slate-800 px-2 py-1 text-xs font-medium text-slate-300">
+                                    Closed
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-border-dark/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-custom">
+<span class="material-symbols-outlined text-sm">arrow_downward</span>
+</div>
+<span class="font-bold text-white">Sell</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-white">WINJ24</td>
+<td class="px-6 py-4">10:15 AM</td>
+<td class="px-6 py-4 text-right font-bold text-rose-custom">-$45.00</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center gap-1 rounded-full bg-slate-800 px-2 py-1 text-xs font-medium text-slate-300">
+                                    Closed
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-border-dark/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-custom">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+</div>
+<span class="font-bold text-white">Buy</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-white">WINJ24</td>
+<td class="px-6 py-4">09:55 AM</td>
+<td class="px-6 py-4 text-right font-bold text-emerald-custom">+$85.00</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center gap-1 rounded-full bg-slate-800 px-2 py-1 text-xs font-medium text-slate-300">
+                                    Closed
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-border-dark/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-custom">
+<span class="material-symbols-outlined text-sm">arrow_upward</span>
+</div>
+<span class="font-bold text-white">Buy</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-white">WDOJ24</td>
+<td class="px-6 py-4">09:30 AM</td>
+<td class="px-6 py-4 text-right font-bold text-emerald-custom">+$120.00</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center gap-1 rounded-full bg-slate-800 px-2 py-1 text-xs font-medium text-slate-300">
+                                    Closed
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-border-dark/30 transition-colors">
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="size-8 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-custom">
+<span class="material-symbols-outlined text-sm">arrow_downward</span>
+</div>
+<span class="font-bold text-white">Sell</span>
+</div>
+</td>
+<td class="px-6 py-4 font-medium text-white">WINJ24</td>
+<td class="px-6 py-4">09:12 AM</td>
+<td class="px-6 py-4 text-right font-bold text-rose-custom">-$20.00</td>
+<td class="px-6 py-4 text-right">
+<span class="inline-flex items-center gap-1 rounded-full bg-slate-800 px-2 py-1 text-xs font-medium text-slate-300">
+                                    Closed
+                                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<footer class="text-center text-slate-600 text-xs py-4">
+<p>© 2024 QuickInvest Bot. Trading involves risk. Capital is at risk.</p>
+</footer>
+</main>
+
+</body></html>
