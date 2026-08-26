@@ -12,18 +12,18 @@ Aceita
 
 O InvestFácil possui duas frentes principais:
 
-* **InvestFácil Academy:** voltada à educação sobre mercado financeiro, gestão de risco, estratégias e funcionamento do sistema;
-* **InvestFácil Robô:** voltada à pesquisa, backtesting, simulação e automação de operações.
+* **InvestFácil Academia:** voltada à educação sobre mercado financeiro, gestão de risco, estratégias e funcionamento do sistema;
+* **InvestFácil Robô:** voltada à pesquisa, simulação histórica, simulação e automação de operações.
 
-Na versão inicial, a interface, as estratégias, a conexão com o MetaTrader 5, o machine learning e parte das regras de negócio estão concentrados em poucos arquivos Python localizados na raiz do projeto.
+Na versão inicial, a interface, as estratégias, a conexão com o MetaTrader 5, o aprendizado de máquina e parte das regras de negócio estão concentrados em poucos arquivos Python localizados na raiz do projeto.
 
 Essa estrutura foi suficiente para a criação do protótipo, mas dificulta:
 
 * a separação entre regras de negócio e infraestrutura;
 * a execução de testes automatizados;
-* a reutilização das estratégias no backtesting;
+* a reutilização das estratégias de simulação histórica;
 * a substituição do MetaTrader 5 por um simulador;
-* a evolução independente do Academy e do Robô;
+* - a evolução independente da Academia e do Robô;
 * a aplicação consistente das regras de segurança;
 * a manutenção e compreensão do código.
 
@@ -35,14 +35,14 @@ O InvestFácil adotará inicialmente uma arquitetura de **monólito modular**.
 
 O sistema permanecerá em um único repositório, mas seu código será separado em módulos com responsabilidades bem definidas:
 
-* `apps`: interfaces executáveis do Academy e do Cockpit;
-* `domain`: entidades e regras puras de negócio;
-* `application`: casos de uso e coordenação das operações;
-* `infrastructure`: integrações com MetaTrader 5, banco de dados, arquivos e serviços externos;
-* `backtesting`: simulação histórica e cálculo de métricas;
-* `ml`: treinamento, avaliação e utilização experimental de modelos;
-* `tests`: testes unitários, de integração e de backtesting;
-* `docs`: documentação técnica e registro das decisões.
+- `aplicacoes`: interfaces executáveis da Academia e do Painel Operacional;
+- `dominio`: entidades e regras puras de negócio;
+- `aplicacao`: casos de uso e coordenação das operações;
+- `infraestrutura`: integrações com MetaTrader 5, banco de dados, arquivos e serviços externos;
+- `simulacao_historica`: simulação histórica e cálculo de métricas;
+- `aprendizado_de_maquina`: treinamento, avaliação e utilização experimental de modelos;
+- `testes`: testes unitários, de integração e de simulação histórica;
+- `documentacao`: documentação técnica e registro das decisões.
 
 As regras do domínio não deverão depender diretamente de:
 
@@ -62,7 +62,7 @@ A arquitetura de monólito modular foi escolhida porque:
 * oferece separação profissional de responsabilidades;
 * facilita o aprendizado gradual de backend e arquitetura;
 * permite testar estratégias sem conexão com o MetaTrader 5;
-* possibilita utilizar as mesmas regras no backtesting e na conta demo;
+* possibilita utilizar as mesmas regras na simulação histórica testing e na conta demo;
 * reduz o acoplamento entre interface, estratégias e execução;
 * possui menor complexidade operacional do que microserviços;
 * permite evolução incremental sem descartar o protótipo atual.
@@ -95,7 +95,7 @@ Microserviços poderão ser reconsiderados se surgirem necessidades reais de esc
 * possibilidade de substituir componentes de infraestrutura;
 * documentação alinhada ao código;
 * evolução gradual para uma API e interface web;
-* base adequada para backtesting e validação estatística.
+* base adequada para simulação histórica e validação estatística.
 
 ## Consequências negativas
 
@@ -114,10 +114,10 @@ Durante a versão 0.2:
 * operações em conta real permanecerão bloqueadas;
 * somente conta demo poderá ser utilizada;
 * nenhuma estratégia será considerada lucrativa sem validação estatística;
-* o machine learning será tratado como componente experimental;
+* o aprendizado de máquina será tratado como componente experimental;
 * nenhuma estratégia poderá enviar ordens diretamente;
 * toda ordem deverá passar pelo módulo de gestão de risco;
-* a liberação de uma estratégia dependerá de backtesting e critérios documentados.
+* a liberação de uma estratégia dependerá de simulação histórica e critérios documentados.
 
 ## Plano de migração
 
@@ -131,7 +131,7 @@ A migração seguirá uma abordagem incremental:
 6. isolar a integração com o MetaTrader 5;
 7. migrar uma estratégia por vez;
 8. criar testes unitários;
-9. implementar o motor de backtesting;
+9. implementar o motor de simulação histórica;
 10. validar as estratégias estatisticamente;
 11. liberar exclusivamente a operação em conta demo.
 

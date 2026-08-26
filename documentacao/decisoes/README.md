@@ -64,7 +64,7 @@ A nomenclatura deverá respeitar as seguintes regras:
 * utilizar numeração sequencial com quatro dígitos;
 * não reutilizar nem renumerar identificadores;
 * utilizar somente letras minúsculas;
-* utilizar nomes técnicos em inglês;
+* utilizar nomes em português;
 * separar palavras com hífen;
 * não utilizar espaços, acentos ou caracteres especiais;
 * descrever a decisão de forma curta e específica;
@@ -72,11 +72,12 @@ A nomenclatura deverá respeitar as seguintes regras:
 
 Exemplos:
 
-* `0001-modular-monolith.md`;
-* `0002-demo-account-only.md`;
-* `0003-src-layout.md`.
+* `0001-monolito-modular.md`;
+* `0002-portugues-como-idioma-padrao.md`;
+* `0003-somente-conta-demonstracao.md`.
 
-O título e o conteúdo dos documentos deverão ser escritos em português, mesmo quando o nome técnico do arquivo estiver em inglês.
+O título e o conteúdo dos documentos também deverão ser escritos em português. Nomes exigidos por ferramentas, linguagens ou bibliotecas externas poderão permanecer em seu formato oficial.
+
 
 ## Regras
 
@@ -93,6 +94,7 @@ Os registros de decisões arquiteturais deverão seguir estas regras:
 
 ## Índice
 
-| ADR                                    | Decisão                                | Status | Data       |
-| -------------------------------------- | -------------------------------------- | ------ | ---------- |
-| [ADR-0001](./0001-modular-monolith.md) | Adotar arquitetura de monólito modular | Aceita | 2026-08-24 |
+| ADR | Decisão | Status | Data |
+|---|---|---|---|
+| [ADR-0001](./0001-monolito-modular.md) | Adotar arquitetura de monólito modular | Aceita | 2026-08-24 |
+| [ADR-0002](./0002-portugues-como-idioma-padrao.md) | Adotar português como idioma padrão | Aceita | 2026-08-25 |

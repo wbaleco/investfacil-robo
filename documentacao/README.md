@@ -7,7 +7,7 @@ Esta pasta reúne a documentação técnica e as decisões de arquitetura do pro
 - Arquitetura do sistema
 - Regras de gestão de risco
 - Estratégias de negociação
-- Processo de backtesting
+- Processo de simulação histórica
 - Integração com MetaTrader 5
 - Critérios para liberação em conta demo
 
